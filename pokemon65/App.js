@@ -30,7 +30,7 @@ function NotificationsScreen({navigation}) {
 
 function PokemonScreen() {
   const [elementos, guardarlista] = useState([]);
-  fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=100', {
+  fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10', {
     method: 'GET',
   })
     .then(response => response.json())
