@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, Button, View, FlatList, StyleSheet} from 'react-native';
+import {Text, Button, View, FlatList} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import Lista from './src/Components/lista';
@@ -30,9 +30,12 @@ function NotificationsScreen({navigation}) {
 
 function PokemonScreen() {
   const [elementos, guardarlista] = useState([]);
-  useEffect(()=>{
+  const {limite} = 10;
+  const {offset} = 0;
+  const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limite}`;
+  useEffect(() => {
     console.log(elementos);
-    fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10', {
+    fetch(url, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -43,8 +46,8 @@ function PokemonScreen() {
       .catch(error => {
         console.error(error);
       });
-  })
-  
+  });
+
   return (
     <>
       <View style={{flex: 1}}>

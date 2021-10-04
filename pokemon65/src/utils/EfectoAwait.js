@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Image} from 'react-native';
-const Pokemeen = ({pokemon, setTipos, setSprite, setPeso, setAltura}) => {
+import React, {useEffect} from 'react';
+import {View} from 'react-native';
+const Pokemeen = ({pokemon, setTipos, setSprite}) => {
   useEffect(() => {
     try {
       setSprite(pokemon.sprites.front_default);
@@ -12,9 +12,7 @@ const Pokemeen = ({pokemon, setTipos, setSprite, setPeso, setAltura}) => {
       return [tipxs.type.name];
     };
   });
-  return(
-<View></View>
-  )
+  return <View></View>;
 };
 
 export default Pokemeen;
