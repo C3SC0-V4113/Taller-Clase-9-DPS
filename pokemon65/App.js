@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, Button, View, FlatList, StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
+import Lista from './src/Components/lista';
 
 // npx react-native run-android
 // npx @react-native-community/cli doctor
@@ -60,7 +61,7 @@ function PokemonScreen() {
         </Text>
         <FlatList
           data={elementos}
-          renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}
+          renderItem={({item}) => <Lista url={item.url}/>}
         />
       </View>
     </>
