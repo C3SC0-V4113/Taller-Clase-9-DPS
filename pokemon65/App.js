@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, Button, View, FlatList, StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -30,17 +30,21 @@ function NotificationsScreen({navigation}) {
 
 function PokemonScreen() {
   const [elementos, guardarlista] = useState([]);
-  fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10', {
-    method: 'GET',
-  })
-    .then(response => response.json())
-    .then(responseJson => {
-      const listado = responseJson.results;
-      guardarlista(listado);
+  useEffect(()=>{
+    console.log(elementos);
+    fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10', {
+      method: 'GET',
     })
-    .catch(error => {
-      console.error(error);
-    });
+      .then(response => response.json())
+      .then(responseJson => {
+        const listado = responseJson.results;
+        guardarlista(listado);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  })
+  
   return (
     <>
       <View style={{flex: 1}}>
@@ -61,7 +65,7 @@ function PokemonScreen() {
         </Text>
         <FlatList
           data={elementos}
-          renderItem={({item}) => <Lista url={item.url} nombre={item.name}/>}
+          renderItem={({item}) => <Lista url={item.url} nombre={item.name} />}
         />
       </View>
     </>
@@ -81,11 +85,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-});

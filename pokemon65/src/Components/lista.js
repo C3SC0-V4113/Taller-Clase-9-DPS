@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image} from 'react-native';
 import {Card, ListItem, Button, Icon, Avatar} from 'react-native-elements';
+import Pokemeen from '../utils/EfectoAwait';
 
 const Lista = ({url, nombre}) => {
   const [pokemon, setPokemon] = useState({});
@@ -11,31 +12,37 @@ const Lista = ({url, nombre}) => {
   const [peso, setPeso] = useState(0);
   const [altura, setAltura] = useState(0);
 
-
+  useEffect(() => {
     const consultarPoke = async () => {
       try {
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
         setPokemon(resultado);
-        try {
-            setSprite(pokemon.sprites.front_default);
-            setTipos(pokemon.types.map(Tipe));
-            setPeso(pokemon.weight);
-            setAltura(pokemon.height);
-        } catch (error) {
-            console.log("Ha fallado la carga")
-        }
+        
+        setPeso(pokemon.weight);
+        setAltura(pokemon.height);
       } catch (error) {
         console.error(error);
       }
     };
-    const Tipe=(tipxs)=>{
-        return [tipxs.type.name]
-    }
+    const Tipe = tipxs => {
+        return [tipxs.type.name];
+      };
     consultarPoke();
+    
 
+  });
 
   return (
+      <>
+    <Pokemeen
+    pokemon={pokemon}
+    setTipos={setTipos}
+    setSprite={setSprite}
+    setPeso={setPeso}
+    setAltura={setAltura}
+  />
+  
     <Card containerStyle={{padding: 0}}>
       <ListItem bottomDivider>
         <Avatar source={sprite && {uri: sprite}} />
@@ -43,11 +50,12 @@ const Lista = ({url, nombre}) => {
           <ListItem.Title>{nombre}</ListItem.Title>
           <ListItem.Subtitle>{tipos.join('/')}</ListItem.Subtitle>
           <ListItem.Subtitle>
-            {peso/10} Kilogramos/{altura/10} Metros
+            {peso / 10} Kilogramos/{altura / 10} Metros
           </ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     </Card>
+    </>
   );
 };
 
