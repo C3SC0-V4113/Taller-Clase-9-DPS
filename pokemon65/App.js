@@ -61,7 +61,7 @@ function PokemonScreen() {
         </Text>
         <FlatList
           data={elementos}
-          renderItem={({item}) => <Lista url={item.url}/>}
+          renderItem={({item}) => <Lista url={item.url} nombre={item.name}/>}
         />
       </View>
     </>
